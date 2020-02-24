@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <img src="../../assets/images/bg-login.jpg" alt="">
+
+    <ion-list no-lines>
+
+        <ion-item>
+          <ion-input  round type="text" placeholder="Usuario" name="Usuario" #username></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-input type="password" placeholder="Contraseña" name="password" #password></ion-input>
+        </ion-item>
+    
+        <button ion-button round block (click)="signIn()">Iniciar sesión</button>
+        <button ion-button round outline block (click)="signUp()">Registrarse</button>
+    
+      </ion-list>
+
+</ion-content>

@@ -1,14 +1,31 @@
 <ion-header>
   <ion-navbar>
+
+    <button ion-button color = "primary" menuToggle>
+      <ion-icon name = "menu"></ion-icon>
+    </button>
+    
     <ion-title>
-      Ionic Blank
+      Áreas
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-card *ngFor="let area of areas">
+      <ion-card-header color="primary">
+        {{area.nombre_direccion}}
+      </ion-card-header>
+      
+      <ion-list>
+        <button ion-item *ngFor="let coordinacion of area.coordinaciones">
+          {{coordinacion.nombre_coordinacion}}
+        </button>
+      </ion-list>
+    </ion-card>
 </ion-content>

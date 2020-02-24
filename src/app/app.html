@@ -1,1 +1,26 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content] = "NAV">
+    <ion-content>
+
+            <ion-item id="menuProfile" menuClose>
+                    <ion-avatar item-start>
+                        <img class="profile" src="/assets/images/avatar5.png" alt="">
+                    </ion-avatar>
+                    <p>{{usuario.usuario!==null ? usuario.usuario.nombre : 'null'}}</p>
+                  </ion-item>
+            
+        <ion-list no-lines>
+            <button ion-item *ngFor = "let page of pages" (click)="goToPage(page.component)" menuClose>
+                <ion-icon item-left name = "{{page.icon}}" color="primary"></ion-icon>
+                {{page.titulo}} 
+            </button>
+        </ion-list>
+        <ion-list no-lines>
+            <button ion-item (click)="cerrarSesion()">
+                <ion-icon item-left name="ios-arrow-round-forward-outline" color="primary"></ion-icon>
+                Cerrar sesión
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #NAV [root]="rootPage"></ion-nav>
