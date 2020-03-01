@@ -2,8 +2,8 @@
 
   <ion-navbar>
 
-    <button ion-button color = "primary" menuToggle>
-      <ion-icon name = "menu"></ion-icon>
+    <button ion-button color="primary" menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
 
     <ion-title>Guarda Precautoria</ion-title>
@@ -14,61 +14,35 @@
 
 <ion-content padding>
 
-    <table>
-        <thead>
-          <tr>
-            <th scope="col">DIRECCIÓN</th>
-            <th scope="col">COORDINACIÓN</th>
-            <th scope="col">CLAVE DEL EXPEDIENTE</th>
-            <th scope="col">DESCRIPCIÓN DEL EXPEDIENTE</th>
-            <th scope="col">AÑO DEL EXPEDIENTE</th>
-            <th scope="col">T. DE CONSERVACIÓN</th>
-            <th scope="col">CARÁCTER</th>
-            <th scope="col">ESTADO</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-              <td data-label="Dirección">Visa - 3412</td>
-              <td data-label="Coordinación">04/01/2016</td>
-              <td data-label="Clave del expediente">$1,190</td>
-              <td data-label="Descripción del expediente">03/01/2016 - 03/31/2016</td>
-              <td data-label="Año del expediente">$1,190</td>
-              <td data-label="T. de conservación">03/01/2016 - 03/31/2016</td>
-              <td data-label="Carácter">$1,190</td>
-              <td data-label="Estado">03/01/2016 - 03/31/2016</td>
-          </tr>
-          <tr>
-              <td scole="row" data-label="Dirección">Visa - 3412</td>
-              <td data-label="Coordinación">04/01/2016</td>
-              <td data-label="Clave del expediente">$1,190</td>
-              <td data-label="Descripción del expediente">03/01/2016 - 03/31/2016</td>
-              <td data-label="Año del expediente">$1,190</td>
-              <td data-label="T. de conservación">03/01/2016 - 03/31/2016</td>
-              <td data-label="Carácter">$1,190</td>
-              <td data-label="Estado">03/01/2016 - 03/31/2016</td>
-          </tr>
-          <tr>
-              <td scole="row" data-label="Dirección">Visa - 3412</td>
-              <td data-label="Coordinación">04/01/2016</td>
-              <td data-label="Clave del expediente">$1,190</td>
-              <td data-label="Descripción del expediente">03/01/2016 - 03/31/2016</td>
-              <td data-label="Año del expediente">$1,190</td>
-              <td data-label="T. de conservación">03/01/2016 - 03/31/2016</td>
-              <td data-label="Carácter">$1,190</td>
-              <td data-label="Estado">03/01/2016 - 03/31/2016</td>
-          </tr>
-          <tr>
-              <td scole="row" data-label="Dirección">Visa - 3412</td>
-              <td data-label="Coordinación">04/01/2016</td>
-              <td data-label="Clave del expediente">$1,190</td>
-              <td data-label="Descripción del expediente">03/01/2016 - 03/31/2016</td>
-              <td data-label="Año del expediente">$1,190</td>
-              <td data-label="T. de conservación">03/01/2016 - 03/31/2016</td>
-              <td data-label="Carácter">$1,190</td>
-              <td data-label="Estado">03/01/2016 - 03/31/2016</td>
-          </tr>
-        </tbody>
-      </table>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">DIRECCIÓN</th>
+        <th scope="col">COORDINACIÓN</th>
+        <th scope="col">CLAVE DEL EXPEDIENTE</th>
+        <th scope="col">DESCRIPCIÓN DEL EXPEDIENTE</th>
+        <th scope="col">AÑO DEL EXPEDIENTE</th>
+        <th scope="col">T. DE CONSERVACIÓN</th>
+        <th scope="col">CARÁCTER</th>
+        <!--<th scope="col">ESTADO</th>-->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let expediente of expedientes">
+        <td data-label="Dirección">{{expediente.nombre_direccion}}</td>
+        <td data-label="Coordinación">{{expediente.nombre_coordinacion}}</td>
+        <td data-label="Clave del expediente">{{expediente.claveExpediente}}</td>
+        <td data-label="Descripción del expediente">{{expediente.descripcionExpediente}}</td>
+        <td data-label="Año del expediente">{{expediente.yearExpediente}}</td>
+        <td data-label="T. de conservación">{{expediente.tiempodeConservacion}}</td>
+        <td data-label="Carácter">{{expediente.caracter}}</td>
+        <!--<td data-label="Estado">03/01/2016 - 03/31/2016</td>-->
+      </tr>
+    </tbody>
+  </table>
 
 </ion-content>

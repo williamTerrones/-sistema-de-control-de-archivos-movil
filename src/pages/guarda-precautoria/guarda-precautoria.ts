@@ -11,13 +11,20 @@ import {Http, Headers, RequestOptions}  from "@angular/http";
 })
 export class GuardaPrecautoriaPage {
 
-  guardaPrecautoria:any;
+  expedientes:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private http: Http,) {
-    this.cargarAreas();
+    this.cargarExpedientes();
   }
 
-  cargarAreas(){
+  doRefresh(refresher) {
+    this.cargarExpedientes();
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
+
+  cargarExpedientes(){
 
     //Configuramos los headers para hacer la petición ala api de php
     var headers = new Headers();
@@ -34,7 +41,7 @@ export class GuardaPrecautoriaPage {
         let resp = JSON.parse(JSON.stringify(response))
         resp._body = JSON.parse(resp._body)
         console.log("Response guarda precautoria", resp)
-        this.guardaPrecautoria = resp._body;
+        this.expedientes = resp._body;
       })
   }
 
