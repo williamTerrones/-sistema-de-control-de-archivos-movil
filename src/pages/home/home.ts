@@ -42,7 +42,7 @@ export class HomePage {
     let options = new RequestOptions({ headers: headers });
     //Creamos los datos a enviar a la api
     //Mostramos el loader en lo que mandamos los datos a la api
-      let url = `${Constantes.API_ENDPOINT}admin/areas.php`;
+      let url = `${Constantes.API_ENDPOINT}admin/areas/areas.php`;
       console.log("UrL "+ url)
       this.http.get(url,options).toPromise().then((response) => {
         let resp = JSON.parse(JSON.stringify(response))
