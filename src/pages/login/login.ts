@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import {Http, Headers, RequestOptions}  from "@angular/http";
-import { App, ViewController } from 'ionic-angular';
+import { App } from 'ionic-angular';
 import { LoadingController } from "ionic-angular";
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';

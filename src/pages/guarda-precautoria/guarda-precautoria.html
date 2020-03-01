@@ -14,6 +14,8 @@
 
 <ion-content padding>
 
+  <button ion-button (click)="test()">Test</button>
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -37,9 +39,9 @@
         <td data-label="Coordinación">{{expediente.nombre_coordinacion}}</td>
         <td data-label="Clave del expediente">{{expediente.claveExpediente}}</td>
         <td data-label="Descripción del expediente">{{expediente.descripcionExpediente}}</td>
-        <td data-label="Año del expediente">{{expediente.yearExpediente}}</td>
+        <td data-label="Año del expediente" [class]="expediente.color">{{expediente.yearExpediente}}</td>
         <td data-label="T. de conservación">{{expediente.tiempodeConservacion}}</td>
-        <td data-label="Carácter">{{expediente.caracter}}</td>
+        <td data-label="Carácter">{{expediente.caracter}} {{expediente.color}}</td>
         <!--<td data-label="Estado">03/01/2016 - 03/31/2016</td>-->
       </tr>
     </tbody>

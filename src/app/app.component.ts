@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { Platform,Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 
 import { LoginPage } from '../pages/login/login';
 import {HomePage} from '../pages/home/home';
@@ -20,7 +21,7 @@ export class MyApp {
   public pages: Array<{titulo:string, component:any, icon:string}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    public storage:Storage,public usuario: UsuarioProvider) {
+    public storage:Storage,public usuario: UsuarioProvider,private push: Push) {
 
     this.pages = [
       {titulo:"Áreas",component:HomePage ,icon:"md-albums"},
@@ -38,8 +39,35 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.pushSetup();
     });
 
+  }
+
+  pushSetup(){
+    const options: PushOptions = {
+       android: {
+           // Añadimos el sender ID para Android.
+           senderID: '326443840914'
+       },
+       ios: {
+           alert: 'true',
+           badge: true,
+           sound: 'false'
+       }
+    };
+     /*
+     // Delete a channel (Android O and above)
+     this.push.deleteChannel('testchannel1').then(() => console.log('Channel deleted'));
+     
+     // Return a list of currently configured channels
+     this.push.listChannels().then((channels) => console.log('List of channels', channels))
+ 
+    const pushObject: PushObject = this.push.init(options);
+ 
+    pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+    pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));*/
   }
 
   cargarUsuario(){
