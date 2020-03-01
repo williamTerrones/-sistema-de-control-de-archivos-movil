@@ -23,8 +23,8 @@ export class MyApp {
     public storage:Storage,public usuario: UsuarioProvider) {
 
     this.pages = [
-      {titulo:"Áreas",component:HomePage ,icon:"home"},
-      {titulo:"Guarda precautoria",component:GuardaPrecautoriaPage ,icon:"home"},
+      {titulo:"Áreas",component:HomePage ,icon:"md-albums"},
+      {titulo:"Guarda precautoria",component:GuardaPrecautoriaPage ,icon:"md-folder"},
     ];
 
     console.log("Inicia app component");
