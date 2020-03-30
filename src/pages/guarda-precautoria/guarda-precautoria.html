@@ -14,8 +14,6 @@
 
 <ion-content padding>
 
-  <button ion-button (click)="test()">Test</button>
-
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -30,11 +28,11 @@
         <th scope="col">AÑO DEL EXPEDIENTE</th>
         <th scope="col">T. DE CONSERVACIÓN</th>
         <th scope="col">CARÁCTER</th>
-        <!--<th scope="col">ESTADO</th>-->
+        <th scope="col">ESTADO</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let expediente of expedientes">
+      <tr *ngFor="let expediente of expedientes" (click)="verInfo(expediente.id_expediente)">
         <td data-label="Dirección">{{expediente.nombre_direccion}}</td>
         <td data-label="Coordinación">{{expediente.nombre_coordinacion}}</td>
         <td data-label="Clave del expediente">{{expediente.claveExpediente}}</td>
@@ -42,7 +40,7 @@
         <td data-label="Año del expediente" [class]="expediente.color">{{expediente.yearExpediente}}</td>
         <td data-label="T. de conservación">{{expediente.tiempodeConservacion}}</td>
         <td data-label="Carácter">{{expediente.caracter}} {{expediente.color}}</td>
-        <!--<td data-label="Estado">03/01/2016 - 03/31/2016</td>-->
+        <td data-label="Estado">{{obtenerEstatus(expediente.estatus_expediente)}}</td>
       </tr>
     </tbody>
   </table>

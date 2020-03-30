@@ -4,13 +4,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
-import { Push } from '@ionic-native/push/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from '../pages/login/login';
 import {RegistroLoginPage} from '../pages/registro-login/registro-login';
 import {GuardaPrecautoriaPage} from '../pages/guarda-precautoria/guarda-precautoria';
+import {GuardaPrecautoriaInfoPage} from '../pages/guarda-precautoria-info/guarda-precautoria-info';
 
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -23,6 +24,7 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     LoginPage,
     RegistroLoginPage,
     GuardaPrecautoriaPage,
+    GuardaPrecautoriaInfoPage,
   ],
   imports: [
     BrowserModule,
@@ -38,14 +40,15 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     LoginPage,
     RegistroLoginPage,
     GuardaPrecautoriaPage,
+    GuardaPrecautoriaInfoPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    Push,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsuarioProvider,
-    HttpClientModule
+    HttpClientModule,
+    OneSignal,
   ]
 })
 export class AppModule {}

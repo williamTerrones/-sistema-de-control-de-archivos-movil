@@ -1,8 +1,8 @@
 import { Component,ViewChild } from '@angular/core';
-import { Platform,Nav } from 'ionic-angular';
+import { Platform,Nav,AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { LoginPage } from '../pages/login/login';
 import {HomePage} from '../pages/home/home';
@@ -21,7 +21,8 @@ export class MyApp {
   public pages: Array<{titulo:string, component:any, icon:string}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    public storage:Storage,public usuario: UsuarioProvider,private push: Push) {
+    public storage:Storage,public usuario: UsuarioProvider, private oneSignal:OneSignal,
+    public alertCtrl: AlertController) {
 
     this.pages = [
       {titulo:"Áreas",component:HomePage ,icon:"md-albums"},
@@ -39,35 +40,41 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.pushSetup();
+      if(platform.is('cordova')){
+        this.setupPush();
+      }
     });
 
   }
 
-  pushSetup(){
-    const options: PushOptions = {
-       android: {
-           // Añadimos el sender ID para Android.
-           senderID: '326443840914'
-       },
-       ios: {
-           alert: 'true',
-           badge: true,
-           sound: 'false'
-       }
+
+
+  setupPush(){
+
+    var notificationOpenedCallback = function(jsonData) {
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
     };
-     /*
-     // Delete a channel (Android O and above)
-     this.push.deleteChannel('testchannel1').then(() => console.log('Channel deleted'));
-     
-     // Return a list of currently configured channels
-     this.push.listChannels().then((channels) => console.log('List of channels', channels))
- 
-    const pushObject: PushObject = this.push.init(options);
- 
-    pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
-    pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
-    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));*/
+
+    window["plugins"].OneSignal
+      .startInit("8d7a87f4-88c5-4e96-873a-1b938e7923b2", "1007916367789")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
+  }
+
+  async showAlert(title,msg,task){
+    
+    const alert = await this.alertCtrl.create({
+      title:title,
+      subTitle:msg,
+      buttons: [{
+        text:`Acción ${task}`,
+        handler:() => {
+
+        }
+      }]
+      });
+      
+      alert.present();
   }
 
   cargarUsuario(){

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import * as Constantes from '../../services/constantes/index';
 import {Http, Headers, RequestOptions}  from "@angular/http";
-import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
+import {GuardaPrecautoriaInfoPage} from '../guarda-precautoria-info/guarda-precautoria-info';
 
 @IonicPage()
 @Component({
@@ -14,7 +14,7 @@ export class GuardaPrecautoriaPage {
 
   expedientes:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: Http,private push: Push) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: Http) {
     this.cargarExpedientes();
   }
 
@@ -25,15 +25,17 @@ export class GuardaPrecautoriaPage {
     }, 2000);
   }
 
-  test(){
-    this.push.createChannel({
-      id: "testchannel1",
-      description: "My first test channel",
-      // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
-      importance: 3
-     }).then(() => alert("Notificacion creada")).catch(error => {
-       alert(error);
-     })
+  obtenerEstatus(status:number){
+    if(status==1){
+      return "Revisado";
+    }
+    return "Sin revisar";
+  }
+
+  verInfo(id){
+    this.navCtrl.push(GuardaPrecautoriaInfoPage,{
+      id_expediente:id,
+    })
   }
 
   obtenerColorExpediente(anio, tiempo){
@@ -41,7 +43,7 @@ export class GuardaPrecautoriaPage {
     const anio_calculado = +anio + +tiempo;
     
     console.log("Anio actual ", anio_actual)
-    console.log("ANIO CALCULADO ", anio_calculado)
+    console.log("ANIO CALCULADO  ", anio_calculado)
 
     if(anio_actual>=anio_calculado){
       return "rojo";
@@ -69,7 +71,10 @@ export class GuardaPrecautoriaPage {
         const data = resp._body;
         this.expedientes = [];
         for(var i in data){
-          const color = this.obtenerColorExpediente(data[i].yearExpediente,data[i].tiempodeConservacion);
+          let color = '';
+          if(data[i].estatus_expediente==="0"){
+            color = this.obtenerColorExpediente(data[i].yearExpediente,data[i].tiempodeConservacion);
+          }
           this.expedientes.push({
             id_expediente:data[i].id_expediente,
             nombre_direccion:data[i].nombre_direccion,

@@ -1,1 +1,1 @@
-export const API_ENDPOINT= 'http://192.168.8.101/sicoa/api/';
+export const API_ENDPOINT= 'http://192.168.8.105/sicoa/api/';
