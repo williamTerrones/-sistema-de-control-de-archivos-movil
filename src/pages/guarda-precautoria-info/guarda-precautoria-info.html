@@ -8,24 +8,6 @@
 
   <ion-card>
     <ion-card-header>
-      Dirección
-    </ion-card-header>
-    <ion-card-content>
-      {{expediente.nombre_direccion}}
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      Coordinación
-    </ion-card-header>
-    <ion-card-content>
-      {{expediente.nombre_coordinacion}}
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
       Clave
     </ion-card-header>
     <ion-card-content>
@@ -75,6 +57,18 @@
     </ion-card-header>
     <ion-card-content>
       {{expediente.descripcionExpediente}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Expediente
+    </ion-card-header>
+    <ion-card-content>
+      <p *ngIf="expediente.url_archivo==''">No tiene expediente</p>
+      <p *ngIf="expediente.url_archivo!==''">
+        <a target="blank" [href]="url_base+expediente.url_archivo">Descargar</a>
+      </p>
     </ion-card-content>
   </ion-card>
 

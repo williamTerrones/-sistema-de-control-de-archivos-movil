@@ -12,6 +12,7 @@ import * as Constantes from '../../services/constantes/index';
 export class GuardaPrecautoriaInfoPage {
 
   id_expediente:string = '';
+  url_base:string = Constantes.API_ENDPOINT_BASE;
 
   expediente:any = {
     claveExpediente:'',
@@ -25,6 +26,7 @@ export class GuardaPrecautoriaInfoPage {
     hojas:'',
     caracter:'',
     estatus_expediente:'',
+    url_archivo:'',
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,

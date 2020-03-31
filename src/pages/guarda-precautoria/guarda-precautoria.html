@@ -32,14 +32,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let expediente of expedientes" (click)="verInfo(expediente.id_expediente)">
+      <tr *ngFor="let expediente of expedientes" (click)="verInfo(expediente.id_expediente)" [class.verde]="expediente.estatus_expediente=='1'">
         <td data-label="Dirección">{{expediente.nombre_direccion}}</td>
         <td data-label="Coordinación">{{expediente.nombre_coordinacion}}</td>
         <td data-label="Clave del expediente">{{expediente.claveExpediente}}</td>
         <td data-label="Descripción del expediente">{{expediente.descripcionExpediente}}</td>
         <td data-label="Año del expediente" [class]="expediente.color">{{expediente.yearExpediente}}</td>
         <td data-label="T. de conservación">{{expediente.tiempodeConservacion}} año(s)</td>
-        <td data-label="Carácter">{{expediente.caracter}} {{expediente.color}}</td>
+        <td data-label="Carácter">{{expediente.caracter}}</td>
         <td data-label="Estatus">{{obtenerEstatus(expediente.estatus_expediente)}}</td>
       </tr>
     </tbody>

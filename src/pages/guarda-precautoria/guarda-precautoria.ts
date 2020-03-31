@@ -25,8 +25,9 @@ export class GuardaPrecautoriaPage {
     }, 2000);
   }
 
-  obtenerEstatus(status:number){
-    if(status==1){
+  obtenerEstatus(status){
+    console.log("Estatus ", status)
+    if(status==="1"){
       return "Revisado";
     }
     return "Sin revisar";
@@ -83,6 +84,7 @@ export class GuardaPrecautoriaPage {
             descripcionExpediente:data[i].descripcionExpediente,
             yearExpediente:data[i].yearExpediente,
             tiempodeConservacion:data[i].tiempodeConservacion,
+            estatus_expediente:data[i].estatus_expediente,
             caracter:data[i].caracter,
             color:color,
           });
