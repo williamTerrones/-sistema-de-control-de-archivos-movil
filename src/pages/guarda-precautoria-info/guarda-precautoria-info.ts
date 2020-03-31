@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import {Http, Headers, RequestOptions}  from "@angular/http";
 import { LoadingController } from "ionic-angular";
 import * as Constantes from '../../services/constantes/index';
@@ -10,6 +10,8 @@ import * as Constantes from '../../services/constantes/index';
   templateUrl: 'guarda-precautoria-info.html',
 })
 export class GuardaPrecautoriaInfoPage {
+
+  id_expediente:string = '';
 
   expediente:any = {
     claveExpediente:'',
@@ -26,9 +28,11 @@ export class GuardaPrecautoriaInfoPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private http: Http, public loading: LoadingController,) {
+    private http: Http, public loading: LoadingController, public alertCtrl: AlertController) {
 
-    this.cargarInfo(this.navParams.get('id_expediente'));
+      this.id_expediente = this.navParams.get('id_expediente');
+
+    this.cargarInfo(this.id_expediente);
   
   }
 
@@ -94,6 +98,55 @@ export class GuardaPrecautoriaInfoPage {
 
   actualizar(){
     console.log(this.expediente.estatus_expediente);
+    //Configuramos los headers para hacer la petición ala api de php
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Access-Control-Allow-Origin', '*');
+    
+    let options = new RequestOptions({ headers: headers });
+    //Creamos los datos a enviar a la api
+    let data = {
+      estatus_expediente:this.expediente.estatus_expediente,
+      id_expediente:this.id_expediente,
+    };
+    
+    let loader = this.loading.create({
+    content: "Cargando, por favor espere…",
+    });
+    //Mostramos el loader en lo que mandamos los datos a la api
+    loader.present().then(() => {
+      let url = `${Constantes.API_ENDPOINT}admin/expedientes/actualizarExpediente.php`;
+      console.log(url)
+      this.http.post(url,data,options).toPromise().then((response) => {
+        let resp = JSON.parse(JSON.stringify(response))
+        resp._body = JSON.parse(resp._body)
+        loader.dismiss()
+
+        let title = '', subtitle = '';
+
+        if(resp._body){
+          title = 'Bien hecho!';
+          subtitle = 'El expediente ha sido actualizado correctamente';
+        } else {
+          title = 'Upps!';
+          subtitle = 'Ocurrió un error inesperado';
+        }
+
+        let alert = this.alertCtrl.create({
+          title:title,
+          subTitle:subtitle,
+          buttons: ["OK"]
+        });
+        alert.present()
+
+      }).catch(error => {
+        console.log("Error", error)
+        loader.dismiss()
+      })
+
+    })
+    
   }
 
   ionViewDidLoad() {
