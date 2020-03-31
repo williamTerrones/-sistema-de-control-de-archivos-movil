@@ -13,6 +13,16 @@ export class GuardaPrecautoriaInfoPage {
 
   expediente:any = {
     claveExpediente:'',
+    nombre_direccion:'',
+    nombre_coordinacion:'',
+    yearExpediente:'',
+    tiempodeConvervacion:'',
+    descripcionExpediente:'',
+    fechaTransparencia:'',
+    legajos:'',
+    hojas:'',
+    caracter:'',
+    estatus_expediente:'',
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -20,6 +30,27 @@ export class GuardaPrecautoriaInfoPage {
 
     this.cargarInfo(this.navParams.get('id_expediente'));
   
+  }
+
+  obtenerEstatus(status:number){
+    if(status==1){
+      return "Revisado";
+    }
+    return "Sin revisar";
+  }
+
+  obtenerTiempoRestante(yearExpediente:number,tiempodeConvervacion:number){
+    
+    const anio_calculado:number = +yearExpediente + +tiempodeConvervacion;
+    const anio_actual:number = new Date().getFullYear();
+
+    if(anio_calculado>anio_actual){
+      const tiempo:number = anio_calculado-anio_actual;
+      return `Falta ${tiempo} año(s)`;
+    }
+    
+    return "El tiempo del expediente ha expirado";
+    
   }
 
   cargarInfo(id_expediente){
@@ -48,6 +79,8 @@ export class GuardaPrecautoriaInfoPage {
         resp._body = JSON.parse(resp._body)
 
         this.expediente = resp._body;
+
+        console.log("Expediente cargado ", this.expediente)
         loader.dismiss()
 
       }).catch(error => {
@@ -57,6 +90,10 @@ export class GuardaPrecautoriaInfoPage {
 
     })
 
+  }
+
+  actualizar(){
+    console.log(this.expediente.estatus_expediente);
   }
 
   ionViewDidLoad() {

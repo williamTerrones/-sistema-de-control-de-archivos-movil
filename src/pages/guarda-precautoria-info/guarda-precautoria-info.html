@@ -6,8 +6,88 @@
 
 <ion-content padding>
 
+  <ion-card>
+    <ion-card-header>
+      Dirección
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.nombre_direccion}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Coordinación
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.nombre_coordinacion}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Clave
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.claveExpediente}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Año del expediente
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.yearExpediente}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Tiempo de conservación
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.tiempodeConservacion}} año(s)
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Tiempo restante
+    </ion-card-header>
+    <ion-card-content>
+      {{obtenerTiempoRestante(expediente.yearExpediente,expediente.tiempodeConservacion)}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Carácter
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.caracter}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Descripcion
+    </ion-card-header>
+    <ion-card-content>
+      {{expediente.descripcionExpediente}}
+    </ion-card-content>
+  </ion-card>
+
+
   <ion-item>
-    <ion-label> <b>Clave: </b> {{expediente.claveExpediente}}</ion-label>
+    <ion-label>Estatus</ion-label>
+    <ion-select [(ngModel)]="expediente.estatus_expediente">
+      <ion-option value="0">Sin revisar</ion-option>
+      <ion-option value="1">Revisado</ion-option>
+    </ion-select>
   </ion-item>
+
+  <button ion-button block (click)="actualizar()">Actualizar</button>
+
 
 </ion-content>
